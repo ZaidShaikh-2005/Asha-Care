@@ -1,5 +1,5 @@
 #define MyAppName "Asha Nurse App"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.1"
 #define MyAppPublisher "Asha Nurse"
 #define MyAppExeName "AshaNurseApp.exe"
 
@@ -15,7 +15,7 @@ DefaultDirName={localappdata}\Programs\AshaNurseApp
 DefaultGroupName={#MyAppName}
 
 OutputDir=installer
-OutputBaseFilename=AshaNurseApp_Setup
+OutputBaseFilename=AshaNurseApp_Setup_v1.1.1
 
 Compression=lzma
 SolidCompression=yes
@@ -24,11 +24,30 @@ PrivilegesRequired=lowest
 Uninstallable=yes
 
 [Files]
-Source: "dist\AshaNurseApp\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
+
+; Application files
+Source: "dist\AshaNurseApp\*"; DestDir: "{app}"; \
+Flags: recursesubdirs createallsubdirs ignoreversion; \
+Excludes: "db.sqlite3,media\*"
+
+; Database - install only if it does not already exist
+Source: "dist\AshaNurseApp\db.sqlite3"; DestDir: "{app}"; \
+Flags: ignoreversion onlyifdoesntexist uninsneveruninstall
+
+; User uploaded files - never overwrite existing files
+Source: "dist\AshaNurseApp\media\*"; DestDir: "{app}\media"; \
+Flags: recursesubdirs createallsubdirs ignoreversion onlyifdoesntexist uninsneveruninstall
 
 [Icons]
-Name: "{autodesktop}\Asha Nurse App"; Filename: "{app}\AshaNurseApp.exe"
-Name: "{group}\Asha Nurse App"; Filename: "{app}\AshaNurseApp.exe"
+
+Name: "{autodesktop}\Asha Nurse App"; \
+Filename: "{app}\AshaNurseApp.exe"
+
+Name: "{group}\Asha Nurse App"; \
+Filename: "{app}\AshaNurseApp.exe"
 
 [Run]
-Filename: "{app}\AshaNurseApp.exe"; Description: "Launch Asha Nurse App"; Flags: nowait postinstall skipifsilent
+
+Filename: "{app}\AshaNurseApp.exe"; \
+Description: "Launch Asha Nurse App"; \
+Flags: nowait postinstall skipifsilent

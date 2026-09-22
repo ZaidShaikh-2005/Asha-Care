@@ -1,0 +1,382 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ayushman Card Pending - ASHA Care</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+    <style>
+
+        .pending-page {
+            padding: 25px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+        }
+
+        .page-header p {
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .pending-count {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: #fff4e5;
+            color: #b45309;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .member-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: 0.2s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-2px);
+            border-color: #86efac;
+        }
+
+        .member-photo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .member-photo-fallback {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .member-info {
+            min-width: 0;
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .member-detail {
+            font-size: 13px;
+            color: #64748b;
+            margin: 3px 0;
+        }
+
+        .pending-label {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 4px 9px;
+            border-radius: 12px;
+            background: #fff7ed;
+            color: #c2410c;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .view-profile {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #15803d;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 50px 20px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        @media (max-width: 1100px) {
+
+            .member-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .member-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="small-logo">
+                A
+            </div>
+
+            <div>
+
+                <h2>
+                    ASHA Care
+                </h2>
+
+                <span>
+                    Healthcare Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-item"
+            >
+                <span>▣</span>
+                Dashboard
+            </a>
+
+            <a
+                href="{% url 'add_village' %}"
+                class="nav-item"
+            >
+                <span>⌂</span>
+                Add Village
+            </a>
+
+            <a
+                href="{% url 'add_family' %}"
+                class="nav-item"
+            >
+                <span>+</span>
+                Add Family
+            </a>
+
+            <a
+                href="{% url 'family_list' %}"
+                class="nav-item"
+            >
+                <span>⌂</span>
+                Family List
+            </a>
+
+            <a
+                href="{% url 'add_member' %}"
+                class="nav-item"
+            >
+                <span>+</span>
+                Add Member
+            </a>
+
+            <a
+                href="{% url 'member_list' %}"
+                class="nav-item"
+            >
+                <span>♙</span>
+                Member List
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-item logout"
+            >
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Ayushman Card Pending
+                </h1>
+
+                <p>
+                    Members who have not submitted
+                    their Ayushman Card information.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="pending-page">
+
+            <div class="page-header">
+
+                <span class="pending-count">
+                    {{ members|length }}
+                    Members Pending
+                </span>
+
+            </div>
+
+
+            {% if members %}
+
+                <div class="member-grid">
+
+                    {% for member in members %}
+
+                        <div class="member-card">
+
+                            {% if member.profile_photo %}
+
+                                <img
+                                    src="{{ member.profile_photo.url }}"
+                                    alt="{{ member.name }}"
+                                    class="member-photo"
+                                >
+
+                            {% else %}
+
+                                <div class="member-photo-fallback">
+                                    {{ member.name|first|upper }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="member-info">
+
+                                <div class="member-name">
+                                    {{ member.name }}
+                                </div>
+
+                                <div class="member-detail">
+                                    Village:
+                                    {{ member.family.village.name }}
+                                </div>
+
+                                <div class="member-detail">
+                                    House ID:
+                                    {{ member.family.house_number|stringformat:"04d" }}
+                                </div>
+
+                                <span class="pending-label">
+                                    Ayushman Card Pending
+                                </span>
+
+                                <br>
+
+                                <a
+                                    href="{% url 'member_detail' member.id %}"
+                                    class="view-profile"
+                                >
+                                    View Profile →
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <h3>
+                        All Ayushman Cards Submitted
+                    </h3>
+
+                    <p>
+                        There are no members with a
+                        pending Ayushman Card.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

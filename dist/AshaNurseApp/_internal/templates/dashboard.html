@@ -1,0 +1,1441 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - ASHA Care</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+    <style>
+
+        /* =========================================
+           PREGNANCY DELIVERY REMINDER
+        ========================================= */
+
+        .pregnancy-reminder {
+            margin-top: 30px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+
+        .pregnancy-reminder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 22px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .pregnancy-reminder-header h2 {
+            margin: 0;
+        }
+
+
+        .pregnancy-reminder-header p {
+            margin: 5px 0 0;
+        }
+
+
+        .reminder-badge {
+            flex-shrink: 0;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #fff4e5;
+            color: #b45309;
+        }
+
+
+        .pregnancy-list {
+            width: 100%;
+        }
+
+
+        .pregnancy-table-header {
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                1.2fr
+                110px
+                160px
+                100px;
+
+            gap: 15px;
+
+            padding: 12px 22px;
+
+            background: #f8fafc;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.03em;
+        }
+
+
+        .pregnancy-item {
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                1.2fr
+                110px
+                160px
+                100px;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 17px 22px;
+
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        .pregnancy-item:last-child {
+            border-bottom: none;
+        }
+
+
+        .pregnancy-name {
+            font-weight: 600;
+        }
+
+
+        .pregnancy-family {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+
+        .pregnancy-house {
+            font-weight: 600;
+        }
+
+
+        .pregnancy-date {
+            font-weight: 600;
+        }
+
+
+        .pregnancy-view {
+            text-align: right;
+        }
+
+
+        .pregnancy-empty {
+            padding: 35px 20px;
+            text-align: center;
+            color: #64748b;
+        }
+
+
+        /* =========================================
+           CLICKABLE STAT CARDS
+        ========================================= */
+
+        .clickable-stat-card {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+
+        .clickable-stat-card:hover {
+            transform: translateY(-2px);
+            border-color: #86efac;
+        }
+
+
+        .stat-card-link {
+            display: block;
+            margin-top: 5px;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           EDITABLE HEALTHCARE WORKER NAME
+        ========================================= */
+
+        .editable-worker-name {
+            cursor: text;
+            outline: none;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+
+        .editable-worker-name:focus {
+            outline: none;
+        }
+
+
+        .editable-worker-name:hover {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+        }
+
+
+        /* =========================================
+           ALL PREGNANT MEMBERS LIST
+        ========================================= */
+
+        .all-pregnant-members {
+            margin-top: 30px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+        }
+
+
+        .all-pregnant-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .all-pregnant-header h2 {
+            margin: 0;
+        }
+
+
+        .all-pregnant-header p {
+            margin: 5px 0 0;
+            color: #64748b;
+        }
+
+
+        .pregnant-members-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        .pregnant-members-row {
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                1fr
+                100px
+                1.2fr
+                160px
+                90px;
+
+            gap: 15px;
+
+            align-items: center;
+
+            padding: 15px 22px;
+
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        .pregnant-members-row:last-child {
+            border-bottom: none;
+        }
+
+
+        .pregnant-members-row.header {
+            background: #f8fafc;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            color: #64748b;
+        }
+
+
+        .pregnant-member-name {
+            font-weight: 600;
+        }
+
+
+        .pregnant-house-number {
+            font-weight: 700;
+        }
+
+
+        .pregnant-family-name {
+            color: #334155;
+        }
+
+
+        .pregnant-delivery-date {
+            font-weight: 600;
+        }
+
+
+        .pregnant-view {
+            text-align: right;
+        }
+
+
+        .no-pregnant-members {
+            padding: 35px 20px;
+            text-align: center;
+            color: #64748b;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .pregnant-members-row.header {
+                display: none;
+            }
+
+            .pregnant-members-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pregnant-view {
+                text-align: left;
+            }
+
+        }
+
+
+        @media (max-width: 1000px) {
+
+            .pregnancy-table-header {
+                display: none;
+            }
+
+            .pregnancy-item {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .pregnancy-view {
+                text-align: left;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .pregnancy-reminder-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .pregnancy-item {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="sidebar-logo">
+
+            <div class="small-logo">
+                A
+            </div>
+
+
+            <div>
+
+                <h2>
+                    ASHA Care
+                </h2>
+
+                <span>
+                    Healthcare Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-item active"
+            >
+
+                <span>
+                    ▣
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="{% url 'add_village' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ⌂
+                </span>
+
+                Add Village
+
+            </a>
+
+
+            <a
+                href="{% url 'add_family' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    +
+                </span>
+
+                Add Family
+
+            </a>
+
+
+            <a
+                href="{% url 'family_list' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ⌂
+                </span>
+
+                Family List
+
+            </a>
+
+
+            <a
+                href="{% url 'add_member' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    +
+                </span>
+
+                Add Member
+
+            </a>
+
+
+            <a
+                href="{% url 'member_list' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ♙
+                </span>
+
+                Member List
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-item logout"
+            >
+
+                <span>
+                    ↪
+                </span>
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+
+            <div>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+
+                <p>
+
+                    Welcome back,
+                    {{ request.user.username }}!
+                    Here's your overview.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="user-profile">
+
+
+                <div class="avatar">
+
+                    {{ request.user.username|first|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+
+                        {{ request.user.username }}
+
+                    </strong>
+
+
+                    <!-- EDITABLE HEALTHCARE WORKER NAME -->
+
+                    <span
+                        class="editable-worker-name"
+                        id="worker-name"
+                        contenteditable="true"
+                        spellcheck="false"
+                        title="Click to edit"
+                    >
+                        Healthcare Worker
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <section class="dashboard-content">
+
+
+            <!-- =========================================
+                 STAT CARDS
+            ========================================== -->
+
+            <div class="stat-grid">
+
+
+                <!-- TOTAL FAMILIES - CLICKABLE -->
+
+                <a
+                    href="{% url 'family_list' %}"
+                    class="stat-card clickable-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        ⌂
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Families
+                        </span>
+
+
+                        <h2>
+                            {{ total_families }}
+                        </h2>
+
+                        <small class="stat-card-link">
+                            View family list →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- TOTAL MEMBERS - CLICKABLE -->
+
+                <a
+                    href="{% url 'member_list' %}"
+                    class="stat-card clickable-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        ♙
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Members
+                        </span>
+
+
+                        <h2>
+                            {{ total_members }}
+                        </h2>
+
+                        <small class="stat-card-link">
+                            View member list →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- TOTAL MALE MEMBERS - NOT CLICKABLE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ♂
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Male Members
+                        </span>
+
+
+                        <h2>
+                            {{ total_male_members }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL FEMALE MEMBERS - NOT CLICKABLE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ♀
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Female Members
+                        </span>
+
+
+                        <h2>
+                            {{ total_female_members }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PREGNANT LADIES - CLICKABLE -->
+
+                <a
+                    href="#pregnant-members-list"
+                    class="stat-card clickable-stat-card"
+                    id="pregnant-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        ♡
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Pregnant Ladies
+                        </span>
+
+
+                        <h2>
+                            {{ total_pregnant }}
+                        </h2>
+
+
+                        <small class="stat-card-link">
+                            View pregnant members →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- AYUSHMAN CARD SUBMITTED - CLICKABLE -->
+
+                <a
+                    href="{% url 'ayushman_submitted' %}"
+                    class="stat-card clickable-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Ayushman Card Submitted
+                        </span>
+
+
+                        <h2>
+                            {{ ayushman_card_submitted }}
+                        </h2>
+
+
+                        <small class="stat-card-link">
+                            View submitted members →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- AYUSHMAN CARD PENDING - CLICKABLE -->
+
+                <a
+                    href="{% url 'ayushman_pending' %}"
+                    class="stat-card clickable-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        !
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Ayushman Card Pending
+                        </span>
+
+
+                        <h2>
+                            {{ ayushman_card_pending }}
+                        </h2>
+
+
+                        <small class="stat-card-link">
+                            View pending members →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- ABHA CARD PENDING - CLICKABLE -->
+
+                <a
+                    href="{% url 'abha_pending' %}"
+                    class="stat-card clickable-stat-card"
+                >
+
+                    <div class="stat-icon">
+                        !
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            ABHA Card Pending
+                        </span>
+
+
+                        <h2>
+                            {{ abha_card_pending }}
+                        </h2>
+
+
+                        <small class="stat-card-link">
+                            View pending members →
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PREGNANCY DELIVERY REMINDER
+            ========================================== -->
+
+            <div class="pregnancy-reminder">
+
+
+                <div class="pregnancy-reminder-header">
+
+
+                    <div>
+
+                        <h2>
+                            Pregnancy Delivery Reminder
+                        </h2>
+
+
+                        <p>
+                            Pregnant ladies whose expected
+                            delivery is within this month.
+                        </p>
+
+                    </div>
+
+
+                    {% if pregnant_due_this_month %}
+
+                        <span class="reminder-badge">
+
+                            {{ pregnant_due_this_month|length }}
+
+                            Due This Month
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="reminder-badge">
+
+                            No Due Dates
+
+                        </span>
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                {% if pregnant_due_this_month %}
+
+
+                    <div class="pregnancy-list">
+
+
+                        <!-- TABLE HEADER -->
+
+                        <div class="pregnancy-table-header">
+
+
+                            <div>
+                                Member
+                            </div>
+
+
+                            <div>
+                                Family
+                            </div>
+
+
+                            <div>
+                                House
+                            </div>
+
+
+                            <div>
+                                Expected Delivery
+                            </div>
+
+
+                            <div>
+                                Action
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PREGNANT MEMBERS -->
+
+                        {% for member in pregnant_due_this_month %}
+
+
+                            <div class="pregnancy-item">
+
+
+                                <!-- MEMBER -->
+
+                                <div>
+
+                                    <div class="pregnancy-name">
+
+                                        {{ member.name }}
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- FAMILY -->
+
+                                <div>
+
+                                    <div class="pregnancy-family">
+
+                                        {{ member.family.family_name }}
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- HOUSE -->
+
+                                <div class="pregnancy-house">
+
+                                    {{ member.family.house_number|stringformat:"04d" }}
+
+                                </div>
+
+
+
+                                <!-- DELIVERY DATE -->
+
+                                <div class="pregnancy-date">
+
+                                    {{ member.expected_delivery_date|date:"d-m-Y" }}
+
+                                </div>
+
+
+
+                                <!-- ACTION -->
+
+                                <div class="pregnancy-view">
+
+                                    <a
+                                        href="{% url 'member_detail' member.id %}"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="pregnancy-empty">
+
+                        No pregnant lady has an expected delivery
+                        date in the current month.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 ALL PREGNANT MEMBERS
+            ========================================== -->
+
+            <div
+                class="all-pregnant-members"
+                id="pregnant-members-list"
+            >
+
+                <div class="all-pregnant-header">
+
+                    <h2>
+                        Pregnant Members
+                    </h2>
+
+                    <p>
+                        All currently pregnant members with their
+                        family and house details.
+                    </p>
+
+                </div>
+
+
+                {% if pregnant_members %}
+
+                    <div class="pregnant-members-table">
+
+
+                        <!-- HEADER -->
+
+                        <div class="pregnant-members-row header">
+
+                            <div>
+                                Member
+                            </div>
+
+                            <div>
+                                House ID
+                            </div>
+
+                            <div>
+                                Gender
+                            </div>
+
+                            <div>
+                                Family
+                            </div>
+
+                            <div>
+                                Expected Delivery
+                            </div>
+
+                            <div>
+                                Action
+                            </div>
+
+                        </div>
+
+
+                        <!-- MEMBERS -->
+
+                        {% for member in pregnant_members %}
+
+                            <div class="pregnant-members-row">
+
+
+                                <!-- MEMBER -->
+
+                                <div class="pregnant-member-name">
+
+                                    {{ member.name }}
+
+                                </div>
+
+
+                                <!-- HOUSE -->
+
+                                <div class="pregnant-house-number">
+
+                                    {{ member.family.house_number|stringformat:"04d" }}
+
+                                </div>
+
+
+                                <!-- GENDER -->
+
+                                <div>
+
+                                    {{ member.gender }}
+
+                                </div>
+
+
+                                <!-- FAMILY -->
+
+                                <div class="pregnant-family-name">
+
+                                    {{ member.family.family_name }}
+
+                                </div>
+
+
+                                <!-- DELIVERY -->
+
+                                <div class="pregnant-delivery-date">
+
+                                    {% if member.expected_delivery_date %}
+
+                                        {{ member.expected_delivery_date|date:"d-m-Y" }}
+
+                                    {% else %}
+
+                                        Not entered
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- ACTION -->
+
+                                <div class="pregnant-view">
+
+                                    <a
+                                        href="{% url 'member_detail' member.id %}"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div>
+
+                {% else %}
+
+                    <div class="no-pregnant-members">
+
+                        No pregnant members registered currently.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =========================================
+                 QUICK ACTIONS
+            ========================================== -->
+
+            <div class="section-header">
+
+
+                <div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+
+                    <p>
+                        Manage family and member records
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="action-grid">
+
+
+                <!-- ADD FAMILY -->
+
+                <a
+                    href="{% url 'add_family' %}"
+                    class="action-card"
+                >
+
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+
+                    <h3>
+                        Add Family
+                    </h3>
+
+
+                    <p>
+
+                        Register a new family and
+                        save their details.
+
+                    </p>
+
+
+                    <span class="action-link">
+
+                        Add Family →
+
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- FAMILY LIST -->
+
+                <a
+                    href="{% url 'family_list' %}"
+                    class="action-card"
+                >
+
+
+                    <div class="action-icon">
+                        ⌂
+                    </div>
+
+
+                    <h3>
+                        Family List
+                    </h3>
+
+
+                    <p>
+
+                        Search and view all
+                        registered families.
+
+                    </p>
+
+
+                    <span class="action-link">
+
+                        View Families →
+
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- ADD MEMBER -->
+
+                <a
+                    href="{% url 'add_member' %}"
+                    class="action-card"
+                >
+
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+
+                    <h3>
+                        Add Member
+                    </h3>
+
+
+                    <p>
+
+                        Add a new member to
+                        an existing family.
+
+                    </p>
+
+
+                    <span class="action-link">
+
+                        Add Member →
+
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- MEMBER LIST -->
+
+                <a
+                    href="{% url 'member_list' %}"
+                    class="action-card"
+                >
+
+
+                    <div class="action-icon">
+                        ♙
+                    </div>
+
+
+                    <h3>
+                        Member List
+                    </h3>
+
+
+                    <p>
+
+                        Search, view and edit
+                        member information.
+
+                    </p>
+
+
+                    <span class="action-link">
+
+                        View Members →
+
+                    </span>
+
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- =========================================
+     EDITABLE HEALTHCARE WORKER NAME SCRIPT
+========================================== -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const workerName = document.getElementById("worker-name");
+
+        const savedName = localStorage.getItem("asha_worker_name");
+
+        if (savedName) {
+            workerName.textContent = savedName;
+        }
+
+
+        workerName.addEventListener("blur", function () {
+
+            const name = workerName.textContent.trim();
+
+            if (name) {
+                localStorage.setItem("asha_worker_name", name);
+            } else {
+                workerName.textContent = "Healthcare Worker";
+                localStorage.setItem(
+                    "asha_worker_name",
+                    "Healthcare Worker"
+                );
+            }
+
+        });
+
+
+        workerName.addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                workerName.blur();
+
+            }
+
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

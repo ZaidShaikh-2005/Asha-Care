@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reset PIN - ASHA Care</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f5f7fa;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .card {
+            width: 100%;
+            max-width: 430px;
+
+            background: white;
+
+            padding: 42px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .logo {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 14px;
+
+            background: #168a43;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 17px;
+
+            margin-bottom: 25px;
+        }
+
+
+        h1 {
+            color: #172033;
+
+            font-size: 28px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .subtitle {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 28px;
+        }
+
+
+        .error-message {
+            background: #fef2f2;
+
+            color: #dc2626;
+
+            border: 1px solid #fecaca;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .success-message {
+            background: #f0fdf4;
+
+            color: #15803d;
+
+            border: 1px solid #bbf7d0;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+
+            line-height: 1.5;
+        }
+
+
+        label {
+            display: block;
+
+            color: #172033;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 9px;
+        }
+
+
+        input {
+            width: 100%;
+
+            height: 52px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            padding: 0 14px;
+
+            font-size: 22px;
+
+            letter-spacing: 8px;
+
+            text-align: center;
+
+            outline: none;
+
+            margin-bottom: 18px;
+        }
+
+
+        input:focus {
+            border-color: #159447;
+
+            box-shadow:
+                0 0 0 3px rgba(21, 148, 71, 0.12);
+        }
+
+
+        .hint {
+            text-align: center;
+
+            color: #8a94a6;
+
+            font-size: 12px;
+
+            margin-top: -8px;
+
+            margin-bottom: 20px;
+        }
+
+
+        button {
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #168a43;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #117438;
+        }
+
+
+        .login-link {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #168a43;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+
+        @media (max-width: 500px) {
+
+            .card {
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+    <div class="logo">
+        ASHA
+    </div>
+
+
+    <h1>
+        Create New PIN
+    </h1>
+
+
+    {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    {% if success %}
+
+        <div class="success-message">
+            {{ success }}
+        </div>
+
+        <a
+            href="{% url 'login' %}"
+            class="login-link"
+        >
+            Go to Login
+        </a>
+
+
+    {% elif valid_link %}
+
+
+        <p class="subtitle">
+            Create a new 6-digit security PIN for
+            your ASHA Care account.
+        </p>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label for="new_pin">
+                New 6-Digit PIN
+            </label>
+
+
+            <input
+                type="password"
+                id="new_pin"
+                name="new_pin"
+                maxlength="6"
+                minlength="6"
+                pattern="[0-9]{6}"
+                inputmode="numeric"
+                autocomplete="new-password"
+                placeholder="••••••"
+                required
+            >
+
+
+            <label for="confirm_pin">
+                Confirm New PIN
+            </label>
+
+
+            <input
+                type="password"
+                id="confirm_pin"
+                name="confirm_pin"
+                maxlength="6"
+                minlength="6"
+                pattern="[0-9]{6}"
+                inputmode="numeric"
+                autocomplete="new-password"
+                placeholder="••••••"
+                required
+            >
+
+
+            <p class="hint">
+                PIN must contain exactly 6 digits.
+            </p>
+
+
+            <button type="submit">
+                Reset PIN
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'login' %}"
+            class="login-link"
+        >
+            ← Back to Login
+        </a>
+
+
+    {% else %}
+
+
+        <p class="subtitle">
+            This reset link is invalid or has expired.
+            Please request a new PIN reset link.
+        </p>
+
+
+        <a
+            href="{% url 'forgot_pin' %}"
+            class="login-link"
+        >
+            Request New Reset Link
+        </a>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,12 +1,24 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from PyInstaller.utils.hooks import collect_submodules
+
+hiddenimports = collect_submodules("core")
 
 a = Analysis(
     ['launcher.py'],
     pathex=[],
     binaries=[],
-    datas=[('templates', 'templates'), ('static', 'static'), ('media', 'media')],
-    hiddenimports=[],
+
+    datas=[
+        ('templates', 'templates'),
+        ('static', 'static'),
+        ('config', 'config'),
+        ('core', 'core'),
+        ('manage.py', '.'),
+    ],
+
+    hiddenimports=hiddenimports,
+
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -14,6 +26,7 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -22,18 +35,19 @@ exe = EXE(
     [],
     exclude_binaries=True,
     name='AshaNurseApp',
+    icon='AshaNurseApp.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['AshaNurseApp.ico'],
 )
+
 coll = COLLECT(
     exe,
     a.binaries,

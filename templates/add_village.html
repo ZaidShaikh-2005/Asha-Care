@@ -1,0 +1,330 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Village - ASHA Care</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="small-logo">
+                A
+            </div>
+
+            <div>
+
+                <h2>
+                    ASHA Care
+                </h2>
+
+                <span>
+                    Healthcare Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-item"
+            >
+                <span>▣</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'add_village' %}"
+                class="nav-item active"
+            >
+                <span>⌂</span>
+                Add Village
+            </a>
+
+
+            <a
+                href="{% url 'add_family' %}"
+                class="nav-item"
+            >
+                <span>+</span>
+                Add Family
+            </a>
+
+
+            <a
+                href="{% url 'family_list' %}"
+                class="nav-item"
+            >
+                <span>⌂</span>
+                Family List
+            </a>
+
+
+            <a
+                href="{% url 'add_member' %}"
+                class="nav-item"
+            >
+                <span>+</span>
+                Add Member
+            </a>
+
+
+            <a
+                href="{% url 'member_list' %}"
+                class="nav-item"
+            >
+                <span>♙</span>
+                Member List
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-item logout"
+            >
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Add Village
+                </h1>
+
+                <p>
+                    Add a village and define the total number of houses available in that village.
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <section class="form-section">
+
+
+            <!-- ADD VILLAGE -->
+
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <div>
+
+                        <h2>
+                            Add Village
+                        </h2>
+
+                        <p>
+                            Enter village details.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if error %}
+
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+
+                {% endif %}
+
+
+                <form
+                    method="POST"
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Village Name
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter village name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Number of Houses
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            name="total_houses"
+                            placeholder="Example: 2000"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Add Village
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- ADDED VILLAGES -->
+
+            <div class="form-card">
+
+                <div class="form-card-header">
+
+                    <div>
+
+                        <h2>
+                            Added Villages
+                        </h2>
+
+                        <p>
+                            Villages already added to the system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if villages %}
+
+                    {% for village in villages %}
+
+                        <a
+                            href="{% url 'family_list' %}?village={{ village.id }}"
+                            style="text-decoration: none; color: inherit;"
+                        >
+
+                            <div
+                                style="
+                                    border: 1px solid #d9dee7;
+                                    border-radius: 10px;
+                                    padding: 16px;
+                                    margin-bottom: 12px;
+                                "
+                            >
+
+                                <strong>
+
+                                    Village {{ village.village_number }}
+                                    - {{ village.name }}
+
+                                </strong>
+
+
+                                <div
+                                    style="
+                                        margin-top: 5px;
+                                        color: #667085;
+                                    "
+                                >
+
+                                    Total Houses:
+                                    {{ village.total_houses }}
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No villages added yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+</body>
+
+</html>

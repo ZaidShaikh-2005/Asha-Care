@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Family Details</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+            color: #162d4d;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 238px;
+            background: white;
+            border-right: 1px solid #dfe4ea;
+            min-height: 100vh;
+            padding: 28px 14px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px;
+            margin-bottom: 38px;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            background: #13883f;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .logo-text h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #162d4d;
+        }
+
+        .logo-text p {
+            margin: 3px 0 0;
+            font-size: 11px;
+            color: #8290a3;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #526173;
+            padding: 13px 12px;
+            border-radius: 9px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav a:hover {
+            background: #f0f7f3;
+            color: #13883f;
+        }
+
+        .nav a.active {
+            background: #d9f7e5;
+            color: #087b39;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .logout {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 25px;
+        }
+
+        .logout a {
+            color: #e00000;
+        }
+
+        .logout a:hover {
+            background: #fff1f1;
+            color: #d00000;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 238px;
+            width: calc(100% - 238px);
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #dfe4ea;
+            padding: 25px 40px 23px;
+        }
+
+        .back-link {
+            color: #13883f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 29px;
+            color: #162d4d;
+        }
+
+        .header-title p {
+            margin: 5px 0 0;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #13883f;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #0f7134;
+        }
+
+        .content {
+            padding: 28px 40px 45px;
+            max-width: 1400px;
+        }
+
+        /* CARDS */
+
+        .card {
+            background: white;
+            border: 1px solid #dfe4ea;
+            border-radius: 14px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 21px;
+            color: #162d4d;
+        }
+
+        .card-header p {
+            margin: 5px 0 0;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        /* FAMILY INFO */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .info-item {
+            padding: 18px 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-item:nth-child(odd) {
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .info-label {
+            display: block;
+            color: #8490a2;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .info-value {
+            color: #263b55;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* MEMBERS */
+
+        .members-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .members-header h2 {
+            margin: 0;
+            font-size: 21px;
+            color: #162d4d;
+        }
+
+        .members-header p {
+            margin: 5px 0 0;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .members-header strong {
+            color: #162d4d;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #162d4d;
+            text-decoration: none;
+            border: 1px solid #d2d8e0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background: #f7f9fb;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .members-table th {
+            background: #f8fafc;
+            color: #667085;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 18px;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+
+        .members-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid #edf0f3;
+            color: #344054;
+            font-size: 14px;
+        }
+
+        .members-table tr:hover {
+            background: #fafbfc;
+        }
+
+        .member-name {
+            color: #162d4d;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-alive {
+            background: #e8f7ee;
+            color: #147a3f;
+        }
+
+        .badge-dead {
+            background: #fcebec;
+            color: #b42318;
+        }
+
+        .view-btn {
+            color: #13883f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .view-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* EMPTY */
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 7px;
+            color: #162d4d;
+            font-size: 18px;
+        }
+
+        .empty-state p {
+            margin: 0 0 20px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .top-header {
+                padding: 22px 25px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item:nth-child(odd) {
+                border-right: none;
+            }
+
+            .members-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <div class="logo">
+                A
+            </div>
+
+            <div class="logo-text">
+                <h2>ASHA Care</h2>
+                <p>Healthcare Portal</p>
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="{% url 'dashboard' %}">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'add_family' %}">
+                <span class="nav-icon">＋</span>
+                <span>Add Family</span>
+            </a>
+
+            <a href="{% url 'family_list' %}" class="active">
+                <span class="nav-icon">⌂</span>
+                <span>Family List</span>
+            </a>
+
+            <a href="{% url 'add_member' %}">
+                <span class="nav-icon">＋</span>
+                <span>Add Member</span>
+            </a>
+
+            <a href="{% url 'member_list' %}">
+                <span class="nav-icon">♙</span>
+                <span>Member List</span>
+            </a>
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="{% url 'logout' %}">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <a
+                href="{% url 'family_list' %}"
+                class="back-link">
+                ← Back to Families
+            </a>
+
+            <div class="header-row">
+
+                <div class="header-title">
+
+                    <h1>Family Details</h1>
+
+                    <p>
+                        View household and family member information.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'add_member' %}"
+                    class="btn-primary">
+                    + Add Member
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+
+            <!-- HOUSEHOLD INFORMATION -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>Household Information</h2>
+
+                    <p>
+                        Basic family and household details
+                    </p>
+
+                </div>
+
+
+                <div class="info-grid">
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Family Name
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.family_name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Village / Gone
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.village }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            House Number
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.house_number }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Family Number
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.family_number }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Contact Number
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.contact_number|default:"—" }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Area
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.area|default:"—" }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            PIN Code
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.pin_code|default:"—" }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Address
+                        </span>
+
+                        <span class="info-value">
+                            {{ family.address|default:"—" }}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- FAMILY MEMBERS -->
+
+            <div class="card">
+
+
+                <div class="members-header">
+
+                    <div>
+
+                        <h2>Family Members</h2>
+
+                        <p>
+                            Total Members:
+                            <strong>{{ members|length }}</strong>
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'add_member' %}"
+                        class="btn-secondary">
+                        + Add Member
+                    </a>
+
+                </div>
+
+
+                {% if members %}
+
+
+                <div class="table-wrapper">
+
+                    <table class="members-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Member Name
+                                </th>
+
+                                <th>
+                                    Gender
+                                </th>
+
+                                <th>
+                                    Relation
+                                </th>
+
+                                <th>
+                                    Date of Birth
+                                </th>
+
+                                <th>
+                                    Age
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for member in members %}
+
+                            <tr>
+
+
+                                <td>
+
+                                    <span class="member-name">
+                                        {{ member.name }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+                                    {{ member.gender }}
+                                </td>
+
+
+                                <td>
+                                    {{ member.relation }}
+                                </td>
+
+
+                                <td>
+                                    {{ member.date_of_birth|date:"d-m-Y" }}
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="member-age"
+                                        data-dob="{{ member.date_of_birth|date:'Y-m-d' }}">
+                                        —
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if member.alive_status == "Alive" %}
+
+                                        <span class="badge badge-alive">
+                                            Alive
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge badge-dead">
+                                            Dead
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <a
+                                        href="{% url 'member_detail' member.id %}"
+                                        class="view-btn">
+                                        View →
+                                    </a>
+
+                                </td>
+
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                {% else %}
+
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        👤
+                    </div>
+
+                    <h3>
+                        No Members Added
+                    </h3>
+
+                    <p>
+                        No members have been added to this family yet.
+                    </p>
+
+                    <a
+                        href="{% url 'add_member' %}"
+                        class="btn-primary">
+                        + Add First Member
+                    </a>
+
+                </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    function calculateAge(dob) {
+
+        if (!dob) {
+            return "—";
+        }
+
+        const birthDate = new Date(dob);
+
+        if (isNaN(birthDate.getTime())) {
+            return "—";
+        }
+
+        const today = new Date();
+
+        let age =
+            today.getFullYear() -
+            birthDate.getFullYear();
+
+        const monthDifference =
+            today.getMonth() -
+            birthDate.getMonth();
+
+        if (
+            monthDifference < 0 ||
+            (
+                monthDifference === 0 &&
+                today.getDate() < birthDate.getDate()
+            )
+        ) {
+            age--;
+        }
+
+        return age + " years";
+    }
+
+
+    document
+        .querySelectorAll(".member-age")
+        .forEach(function(element) {
+
+            const dob =
+                element.getAttribute("data-dob");
+
+            element.textContent =
+                calculateAge(dob);
+
+        });
+
+</script>
+
+</body>
+
+</html>

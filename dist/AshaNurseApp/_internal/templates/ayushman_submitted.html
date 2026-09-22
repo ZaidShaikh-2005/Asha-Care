@@ -1,0 +1,513 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ayushman Card Submitted - ASHA Care</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+    <style>
+
+        .submitted-page {
+            padding: 28px 22px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #047857;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .submitted-badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .submitted-members {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .submitted-member-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .submitted-member-photo {
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #dcfce7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #15803d;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .submitted-member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .submitted-member-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .submitted-member-name {
+            margin: 0 0 5px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .member-location {
+            margin: 3px 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .submitted-status {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .view-profile {
+            display: block;
+            margin-top: 8px;
+            color: #047857;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .view-profile:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 8px;
+            color: #0f172a;
+        }
+
+        .empty-state p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        @media (max-width: 900px) {
+
+            .submitted-members {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .submitted-page {
+                padding: 20px 15px;
+            }
+
+            .submitted-member-card {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="small-logo">
+                A
+            </div>
+
+            <div>
+
+                <h2>
+                    ASHA Care
+                </h2>
+
+                <span>
+                    Healthcare Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ▣
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="{% url 'add_village' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ⌂
+                </span>
+
+                Add Village
+
+            </a>
+
+
+            <a
+                href="{% url 'add_family' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    +
+                </span>
+
+                Add Family
+
+            </a>
+
+
+            <a
+                href="{% url 'family_list' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ⌂
+                </span>
+
+                Family List
+
+            </a>
+
+
+            <a
+                href="{% url 'add_member' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    +
+                </span>
+
+                Add Member
+
+            </a>
+
+
+            <a
+                href="{% url 'member_list' %}"
+                class="nav-item"
+            >
+
+                <span>
+                    ♙
+                </span>
+
+                Member List
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{% url 'logout' %}"
+                class="nav-item logout"
+            >
+
+                <span>
+                    ↪
+                </span>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Ayushman Card Submitted
+                </h1>
+
+                <p>
+                    Members who have submitted their Ayushman Card details.
+                </p>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+
+                    {{ request.user.username|first|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+
+                        {{ request.user.username }}
+
+                    </strong>
+
+                    <span>
+
+                        Healthcare Worker
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             CONTENT
+        ========================================== -->
+
+        <section class="submitted-page">
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+            <!-- COUNT -->
+
+            <div class="submitted-badge">
+
+                {{ members|length }} Members Submitted
+
+            </div>
+
+
+
+            <!-- =========================================
+                 MEMBERS
+            ========================================== -->
+
+            {% if members %}
+
+                <div class="submitted-members">
+
+
+                    {% for member in members %}
+
+                        <div class="submitted-member-card">
+
+
+                            <!-- PHOTO -->
+
+                            <div class="submitted-member-photo">
+
+                                {% if member.profile_photo %}
+
+                                    <img
+                                        src="{{ member.profile_photo.url }}"
+                                        alt="{{ member.name }}"
+                                    >
+
+                                {% else %}
+
+                                    {{ member.name|first|upper }}
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- MEMBER INFO -->
+
+                            <div class="submitted-member-info">
+
+                                <h3 class="submitted-member-name">
+
+                                    {{ member.name }}
+
+                                </h3>
+
+
+                                <p class="member-location">
+
+                                    Village:
+                                    {{ member.family.village.name }}
+
+                                </p>
+
+
+                                <p class="member-location">
+
+                                    House ID:
+                                    {{ member.family.house_number|stringformat:"04d" }}
+
+                                </p>
+
+
+                                <span class="submitted-status">
+
+                                    Ayushman Card Submitted
+
+                                </span>
+
+
+                                <a
+                                    href="{% url 'member_detail' member.id %}"
+                                    class="view-profile"
+                                >
+
+                                    View Profile →
+
+                                </a>
+
+                            </div>
+
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+            {% else %}
+
+
+                <!-- EMPTY -->
+
+                <div class="empty-state">
+
+                    <h3>
+                        No Ayushman Cards Submitted
+                    </h3>
+
+                    <p>
+                        No member has submitted an Ayushman Card number yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+</body>
+
+</html>
