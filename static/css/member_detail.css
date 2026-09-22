@@ -1,0 +1,131 @@
+.detail-section {
+    padding: 35px 40px;
+}
+
+.detail-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 13px;
+    padding: 28px;
+    margin-bottom: 22px;
+}
+
+.detail-card-title {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 28px;
+}
+
+.family-avatar,
+.member-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 13px;
+    background: #dcfce7;
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.detail-card-title h2 {
+    font-size: 22px;
+    margin: 5px 0;
+}
+
+.detail-label {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid #e5e7eb;
+}
+
+.detail-item {
+    padding: 20px 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-item:nth-child(odd) {
+    border-right: 1px solid #e5e7eb;
+    padding-right: 25px;
+}
+
+.detail-item:nth-child(even) {
+    padding-left: 25px;
+}
+
+.detail-item span {
+    display: block;
+    color: #9ca3af;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.detail-item strong {
+    font-size: 14px;
+    color: #374151;
+}
+
+.status-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.family-summary {
+    padding: 22px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.family-summary-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.family-summary strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.family-summary span {
+    display: block;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-item:nth-child(odd) {
+        border-right: none;
+        padding-right: 10px;
+    }
+
+    .detail-item:nth-child(even) {
+        padding-left: 10px;
+    }
+}
+

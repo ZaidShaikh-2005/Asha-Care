@@ -1,0 +1,31 @@
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f9fafb;
+}
+
+th {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+td {
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+    font-size: 13px;
+    color: #4b5563;
+    white-space: nowrap;
+}
+
