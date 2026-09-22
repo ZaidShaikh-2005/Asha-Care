@@ -17,6 +17,7 @@ from django.utils.http import (
 from django.db.models import Q
 
 from .models import Family, Member, Village
+from django.http import JsonResponse
 
 
 # =========================================================
@@ -1545,5 +1546,125 @@ def house_detail(
             'house_number': house_number,
 
             'families': families
+        }
+    )
+
+@login_required
+def age_range_count(request):
+    from django.utils import timezone
+
+    today = timezone.localdate()
+
+    try:
+        min_age = int(request.GET.get('min_age', 1))
+        max_age = int(request.GET.get('max_age', 105))
+    except (TypeError, ValueError):
+        min_age = 1
+        max_age = 105
+
+    min_age = max(1, min(105, min_age))
+    max_age = max(1, min(105, max_age))
+
+    if min_age > max_age:
+        min_age, max_age = max_age, min_age
+
+    try:
+        youngest_birth_date = today.replace(
+            year=today.year - min_age
+        )
+    except ValueError:
+        youngest_birth_date = today.replace(
+            year=today.year - min_age,
+            day=28
+        )
+
+    try:
+        oldest_birth_date = today.replace(
+            year=today.year - (max_age + 1)
+        )
+    except ValueError:
+        oldest_birth_date = today.replace(
+            year=today.year - (max_age + 1),
+            day=28
+        )
+
+    count = Member.objects.filter(
+        date_of_birth__gt=oldest_birth_date,
+        date_of_birth__lte=youngest_birth_date
+    ).count()
+
+    return JsonResponse({
+        'count': count,
+        'min_age': min_age,
+        'max_age': max_age
+    })
+
+@login_required
+def age_range_members(request):
+    from django.utils import timezone
+
+    today = timezone.localdate()
+
+    try:
+        min_age = int(request.GET.get('min_age', 1))
+        max_age = int(request.GET.get('max_age', 105))
+    except (TypeError, ValueError):
+        min_age = 1
+        max_age = 105
+
+    min_age = max(1, min(105, min_age))
+    max_age = max(1, min(105, max_age))
+
+    if min_age > max_age:
+        min_age, max_age = max_age, min_age
+
+    # Youngest DOB allowed for selected minimum age
+    try:
+        youngest_birth_date = today.replace(
+            year=today.year - min_age
+        )
+    except ValueError:
+        youngest_birth_date = today.replace(
+            year=today.year - min_age,
+            day=28
+        )
+
+    # Oldest DOB allowed for selected maximum age
+    try:
+        oldest_birth_date = today.replace(
+            year=today.year - (max_age + 1)
+        )
+    except ValueError:
+        oldest_birth_date = today.replace(
+            year=today.year - (max_age + 1),
+            day=28
+        )
+
+    members = Member.objects.select_related(
+        'family',
+        'family__village'
+    ).filter(
+        date_of_birth__gt=oldest_birth_date,
+        date_of_birth__lte=youngest_birth_date
+    ).order_by('name')
+
+    # Calculate current age for every member
+    for member in members:
+        member.current_age = (
+            today.year
+            - member.date_of_birth.year
+            - (
+                (today.month, today.day)
+                < (member.date_of_birth.month, member.date_of_birth.day)
+            )
+        )
+
+    return render(
+        request,
+        'range_members.html',
+        {
+            'members': members,
+            'min_age': min_age,
+            'max_age': max_age,
         }
     )

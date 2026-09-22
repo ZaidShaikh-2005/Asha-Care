@@ -114,4 +114,12 @@ urlpatterns = [
         views.abha_pending,
         name='abha_pending'
     ),
+
+    path('age-range-count/', views.age_range_count, name='age_range_count'),
+
+    path(
+        'age-range-members/',
+        views.age_range_members,
+        name='age_range_members'
+    ),
 ]

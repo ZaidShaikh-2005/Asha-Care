@@ -2,79 +2,123 @@ import os
 import sys
 import threading
 import time
-import urllib.request
-
-import webview
-from django.core.management import execute_from_command_line
+import socket
 
 
-HOST = "127.0.0.1"
-PORT = 8000
-URL = f"http://{HOST}:{PORT}/"
-
+# --------------------------------------------------
+# PATH SETUP
+# --------------------------------------------------
 
 if getattr(sys, "frozen", False):
+    BASE_DIR = sys._MEIPASS
     APP_DIR = os.path.dirname(sys.executable)
 else:
-    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    APP_DIR = BASE_DIR
 
+sys.path.insert(0, BASE_DIR)
 
 os.chdir(APP_DIR)
 
-if APP_DIR not in sys.path:
-    sys.path.insert(0, APP_DIR)
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "config.settings"
+)
 
 
-def start_django():
-    os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE",
-        "config.settings"
-    )
+# --------------------------------------------------
+# START DJANGO USING WAITRESS
+# --------------------------------------------------
 
-    execute_from_command_line([
-        "manage.py",
-        "runserver",
-        f"{HOST}:{PORT}",
-        "--noreload"
-    ])
+def run_server():
+    try:
+        from config.wsgi import application
+        from waitress import serve
+
+        serve(
+            application,
+            host="127.0.0.1",
+            port=8000,
+            threads=4
+        )
+
+    except Exception:
+        import traceback
+
+        error = traceback.format_exc()
+
+        error_file = os.path.join(
+            APP_DIR,
+            "asha_error.log"
+        )
+
+        with open(
+            error_file,
+            "w",
+            encoding="utf-8"
+        ) as f:
+            f.write(error)
 
 
-def wait_for_server():
+# --------------------------------------------------
+# WAIT UNTIL SERVER IS READY
+# --------------------------------------------------
 
-    for _ in range(60):
+def wait_for_server(timeout=30):
+
+    start = time.time()
+
+    while time.time() - start < timeout:
 
         try:
-            urllib.request.urlopen(
-                URL,
+            with socket.create_connection(
+                ("127.0.0.1", 8000),
                 timeout=1
-            )
+            ):
+                return True
 
-            return True
-
-        except Exception:
+        except OSError:
             time.sleep(0.25)
 
     return False
 
 
+# --------------------------------------------------
+# MAIN
+# --------------------------------------------------
+
 if __name__ == "__main__":
 
-    django_thread = threading.Thread(
-        target=start_django,
+    server_thread = threading.Thread(
+        target=run_server,
         daemon=True
     )
 
-    django_thread.start()
+    server_thread.start()
 
-    if wait_for_server():
+    if not wait_for_server():
 
-        webview.create_window(
-            "Asha Nurse App",
-            URL,
-            width=1280,
-            height=800,
-            min_size=(900, 600),
-            resizable=True
+        import ctypes
+
+        ctypes.windll.user32.MessageBoxW(
+            0,
+            "ASHA Care could not start.\n\n"
+            "Please check asha_error.log.",
+            "ASHA Care",
+            0x10
         )
 
-        webview.start()
+        sys.exit(1)
+
+    import webview
+
+    webview.create_window(
+        "ASHA Care",
+        "http://127.0.0.1:8000/",
+        width=1280,
+        height=800,
+        min_size=(1000, 650),
+        resizable=True
+    )
+
+    webview.start()

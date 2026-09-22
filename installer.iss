@@ -1,6 +1,6 @@
-#define MyAppName "Asha Nurse App"
+#define MyAppName "ASHA Care"
 #define MyAppVersion "1.1.1"
-#define MyAppPublisher "Asha Nurse"
+#define MyAppPublisher "ASHA Care"
 #define MyAppExeName "AshaNurseApp.exe"
 
 [Setup]
@@ -9,45 +9,72 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 
-SetupIconFile=AshaNurseApp.ico
-
 DefaultDirName={localappdata}\Programs\AshaNurseApp
 DefaultGroupName={#MyAppName}
+
+SetupIconFile=AshaNurseApp.ico
 
 OutputDir=installer
 OutputBaseFilename=AshaNurseApp_Setup_v1.1.1
 
-Compression=lzma
+Compression=lzma2
 SolidCompression=yes
 
 PrivilegesRequired=lowest
 Uninstallable=yes
+WizardStyle=modern
 
 [Files]
 
-; Application files
-Source: "dist\AshaNurseApp\*"; DestDir: "{app}"; \
+; ---------------------------------------------------------
+; APPLICATION FILES
+; ---------------------------------------------------------
+
+Source: "dist\AshaNurseApp\*"; \
+DestDir: "{app}"; \
 Flags: recursesubdirs createallsubdirs ignoreversion; \
 Excludes: "db.sqlite3,media\*"
 
-; Database - install only if it does not already exist
-Source: "dist\AshaNurseApp\db.sqlite3"; DestDir: "{app}"; \
+
+; ---------------------------------------------------------
+; DATABASE
+; Install database only on first installation.
+; Existing client database will NOT be overwritten on update.
+; ---------------------------------------------------------
+
+Source: "dist\AshaNurseApp\db.sqlite3"; \
+DestDir: "{app}"; \
 Flags: ignoreversion onlyifdoesntexist uninsneveruninstall
 
-; User uploaded files - never overwrite existing files
-Source: "dist\AshaNurseApp\media\*"; DestDir: "{app}\media"; \
+
+; ---------------------------------------------------------
+; MEDIA
+; Preserve user uploaded files.
+; ---------------------------------------------------------
+
+Source: "dist\AshaNurseApp\media\*"; \
+DestDir: "{app}\media"; \
 Flags: recursesubdirs createallsubdirs ignoreversion onlyifdoesntexist uninsneveruninstall
+
 
 [Icons]
 
-Name: "{autodesktop}\Asha Nurse App"; \
-Filename: "{app}\AshaNurseApp.exe"
+; Desktop shortcut
+Name: "{autodesktop}\ASHA Care"; \
+Filename: "{app}\AshaNurseApp.exe"; \
+WorkingDir: "{app}"; \
+IconFilename: "{app}\AshaNurseApp.exe"
 
-Name: "{group}\Asha Nurse App"; \
-Filename: "{app}\AshaNurseApp.exe"
+; Start Menu shortcut
+Name: "{group}\ASHA Care"; \
+Filename: "{app}\AshaNurseApp.exe"; \
+WorkingDir: "{app}"; \
+IconFilename: "{app}\AshaNurseApp.exe"
+
 
 [Run]
 
 Filename: "{app}\AshaNurseApp.exe"; \
-Description: "Launch Asha Nurse App"; \
+Description: "Launch ASHA Care"; \
+WorkingDir: "{app}"; \
 Flags: nowait postinstall skipifsilent

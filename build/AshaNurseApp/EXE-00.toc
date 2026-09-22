@@ -1,5 +1,5 @@
 ('C:\\Users\\Admin\\Desktop\\help\\asha_nurse_app\\build\\AshaNurseApp\\AshaNurseApp.exe',
- True,
+ False,
  False,
  True,
  ['C:\\Users\\Admin\\Desktop\\help\\asha_nurse_app\\AshaNurseApp.ico'],
@@ -73,8 +73,8 @@
  [],
  False,
  False,
- 1789910776,
- [('run.exe',
-   'C:\\Users\\Admin\\Desktop\\help\\asha_nurse_app\\venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
+ 1790090054,
+ [('runw.exe',
+   'C:\\Users\\Admin\\Desktop\\help\\asha_nurse_app\\venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
  'C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python314.dll')
