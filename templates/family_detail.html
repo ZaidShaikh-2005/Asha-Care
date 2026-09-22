@@ -14,6 +14,8 @@
         href="{% static 'css/family_detail.css' %}"
     >
 
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+
 </head>
 
 
@@ -443,57 +445,12 @@
 </div>
 
 
-<script>
-
-    function calculateAge(dob) {
-
-        if (!dob) {
-            return "—";
-        }
-
-        const birthDate = new Date(dob);
-
-        if (isNaN(birthDate.getTime())) {
-            return "—";
-        }
-
-        const today = new Date();
-
-        let age =
-            today.getFullYear() -
-            birthDate.getFullYear();
-
-        const monthDifference =
-            today.getMonth() -
-            birthDate.getMonth();
-
-        if (
-            monthDifference < 0 ||
-            (
-                monthDifference === 0 &&
-                today.getDate() < birthDate.getDate()
-            )
-        ) {
-            age--;
-        }
-
-        return age + " years";
-    }
 
 
-    document
-        .querySelectorAll(".member-age")
-        .forEach(function(element) {
 
-            const dob =
-                element.getAttribute("data-dob");
+<script src="{% static 'js/family_detail.js' %}"></script>
 
-            element.textContent =
-                calculateAge(dob);
-
-        });
-
-</script>
+<script src="{% static 'js/theme.js' %}"></script>
 
 </body>
 

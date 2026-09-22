@@ -3,8 +3,8 @@
 }
 
 .detail-card {
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 13px;
     padding: 28px;
     margin-bottom: 22px;
@@ -22,8 +22,8 @@
     width: 58px;
     height: 58px;
     border-radius: 13px;
-    background: #dcfce7;
-    color: #15803d;
+    background: var(--theme-accent-soft);
+    color: var(--theme-accent-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,23 +37,23 @@
 }
 
 .detail-label {
-    color: #9ca3af;
+    color: var(--theme-muted);
     font-size: 12px;
 }
 
 .detail-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--theme-border);
 }
 
 .detail-item {
     padding: 20px 10px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--theme-border);
 }
 
 .detail-item:nth-child(odd) {
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--theme-border);
     padding-right: 25px;
 }
 
@@ -63,20 +63,20 @@
 
 .detail-item span {
     display: block;
-    color: #9ca3af;
+    color: var(--theme-muted);
     font-size: 12px;
     margin-bottom: 7px;
 }
 
 .detail-item strong {
     font-size: 14px;
-    color: #374151;
+    color: var(--theme-text-2);
 }
 
 .status-badge {
     display: inline-block;
-    background: #dcfce7;
-    color: #15803d;
+    background: var(--theme-accent-soft);
+    color: var(--theme-accent-dark);
     padding: 4px 9px;
     border-radius: 20px;
     font-size: 11px;
@@ -93,8 +93,8 @@
     width: 45px;
     height: 45px;
     border-radius: 10px;
-    background: #dcfce7;
-    color: #15803d;
+    background: var(--theme-accent-soft);
+    color: var(--theme-accent-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +109,7 @@
 
 .family-summary span {
     display: block;
-    color: #9ca3af;
+    color: var(--theme-muted);
     font-size: 12px;
 }
 
@@ -129,3 +129,26 @@
     }
 }
 
+
+
+/* Aqua card surface treatment — visual styling only */
+.action-card,
+.detail-card,
+.form-card,
+.search-card,
+.stat-card,
+.table-card {
+    background-color: var(--theme-surface);
+    border-color: var(--theme-border);
+    box-shadow: 0 4px 18px rgba(143, 250, 250, 0.16);
+}
+
+.action-card:hover,
+.detail-card:hover,
+.form-card:hover,
+.search-card:hover,
+.stat-card:hover,
+.table-card:hover {
+    border-color: var(--theme-secondary);
+    box-shadow: 0 8px 28px rgba(143, 250, 250, 0.25);
+}

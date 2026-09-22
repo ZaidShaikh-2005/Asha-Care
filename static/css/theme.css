@@ -1,0 +1,203 @@
+/* ASHA Care theme layer — visual colors only; no layout or application logic changed. */
+:root,
+html[data-theme="light"] {
+    --theme-primary: #8FFAFA;
+    --theme-secondary: #BBFCFC;
+    --theme-bg: #F7FFFF;
+    --theme-bg-soft: #F2FEFE;
+    --theme-surface: #FFFFFF;
+    --theme-accent-soft: #E8FEFE;
+    --theme-border: #D7F6F6;
+    --theme-border-soft: #F2FCFC;
+    --theme-text: #123F45;
+    --theme-text-2: #315D61;
+    --theme-muted: #607E81;
+    --theme-accent-dark: #2F8F93;
+    --theme-accent-dark-hover: #28777B;
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    --theme-primary: #8FFAFA;
+    --theme-secondary: #BBFCFC;
+    --theme-bg: #071D20;
+    --theme-bg-soft: #0B292D;
+    --theme-surface: #103438;
+    --theme-accent-soft: #17494D;
+    --theme-border: #286166;
+    --theme-border-soft: #1B494D;
+    --theme-text: #E9FFFF;
+    --theme-text-2: #D4FAFA;
+    --theme-muted: #9EC9CB;
+    --theme-accent-dark: #8FFAFA;
+    --theme-accent-dark-hover: #BBFCFC;
+    color-scheme: dark;
+}
+
+/* Theme chooser only. Kept isolated so existing page layout is untouched. */
+.asha-theme-picker {
+    position: fixed;
+    top: 16px;
+    right: 18px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 9px;
+    border: 1px solid var(--theme-border);
+    border-radius: 10px;
+    background: var(--theme-surface);
+    box-shadow: 0 6px 20px rgba(18, 63, 69, 0.10);
+}
+.asha-theme-picker label {
+    color: var(--theme-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+.asha-theme-picker select {
+    min-width: 78px;
+    padding: 6px 26px 6px 9px;
+    border: 1px solid var(--theme-border);
+    border-radius: 7px;
+    outline: none;
+    background: var(--theme-bg-soft);
+    color: var(--theme-text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.asha-theme-picker select:focus { border-color: var(--theme-primary); }
+
+/* Literal white backgrounds/text in the original CSS are intentionally preserved.
+   These targeted rules make dark mode complete without changing component structure. */
+html[data-theme="dark"] body { background: var(--theme-bg) !important; color: var(--theme-text); }
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select { background-color: var(--theme-bg-soft); color: var(--theme-text); }
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder { color: var(--theme-muted); }
+html[data-theme="dark"] option { background: var(--theme-surface); color: var(--theme-text); }
+
+@media (max-width: 600px) {
+    .asha-theme-picker { top: 10px; right: 10px; }
+    .asha-theme-picker label { display: none; }
+}
+
+/* Keep the application chrome in the selected aqua theme. */
+.sidebar,
+.topbar {
+    background: var(--theme-surface) !important;
+    border-color: var(--theme-border) !important;
+    color: var(--theme-text) !important;
+}
+
+.sidebar-logo h2,
+.topbar h1,
+.user-profile strong {
+    color: var(--theme-text) !important;
+}
+
+.sidebar-logo span,
+.topbar p,
+.user-profile span,
+.nav-item {
+    color: var(--theme-muted) !important;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--theme-accent-soft) !important;
+    color: var(--theme-accent-dark) !important;
+}
+
+.small-logo,
+.avatar {
+    background: var(--theme-accent-soft) !important;
+    color: var(--theme-accent-dark) !important;
+}
+
+/* Theme chooser: fixed bottom-right on every page. */
+.asha-theme-picker {
+    top: auto !important;
+    right: 18px !important;
+    bottom: 18px !important;
+}
+
+@media (max-width: 600px) {
+    .asha-theme-picker {
+        top: auto !important;
+        right: 10px !important;
+        bottom: 10px !important;
+    }
+}
+
+/* Neon theme — same application structure, colors only. */
+html[data-theme="neon"] {
+    --theme-primary: #8FFAFA;
+    --theme-secondary: #BBFCFC;
+    --theme-bg: #031315;
+    --theme-bg-soft: #071F22;
+    --theme-surface: #0A292C;
+    --theme-accent-soft: #0E3B3F;
+    --theme-border: #38DDE2;
+    --theme-border-soft: #17494D;
+    --theme-text: #EFFFFF;
+    --theme-text-2: #BBFCFC;
+    --theme-muted: #8EDADD;
+    --theme-accent-dark: #8FFAFA;
+    --theme-accent-dark-hover: #BBFCFC;
+    color-scheme: dark;
+}
+
+html[data-theme="neon"] body {
+    background: var(--theme-bg) !important;
+    color: var(--theme-text);
+}
+html[data-theme="neon"] input,
+html[data-theme="neon"] textarea,
+html[data-theme="neon"] select {
+    background-color: var(--theme-bg-soft);
+    color: var(--theme-text);
+}
+html[data-theme="neon"] input::placeholder,
+html[data-theme="neon"] textarea::placeholder { color: var(--theme-muted); }
+html[data-theme="neon"] option { background: var(--theme-surface); color: var(--theme-text); }
+html[data-theme="neon"] .sidebar,
+html[data-theme="neon"] .topbar,
+html[data-theme="neon"] .asha-theme-picker {
+    box-shadow: 0 0 16px rgba(143, 250, 250, .16);
+}
+html[data-theme="neon"] .action-card,
+html[data-theme="neon"] .detail-card,
+html[data-theme="neon"] .form-card,
+html[data-theme="neon"] .search-card,
+html[data-theme="neon"] .stat-card,
+html[data-theme="neon"] .table-card,
+html[data-theme="neon"] .house-block {
+    box-shadow: 0 0 14px rgba(143, 250, 250, .13);
+}
+
+/* Keep Add Member and Search buttons consistent with the selected aqua theme. */
+.primary-btn {
+    background: var(--theme-primary) !important;
+    color: #123F45 !important;
+    border: 1px solid var(--theme-accent-dark) !important;
+    box-shadow: 0 3px 10px rgba(143, 250, 250, .18);
+}
+.primary-btn:hover {
+    background: var(--theme-secondary) !important;
+    color: #123F45 !important;
+    border-color: var(--theme-primary) !important;
+}
+html[data-theme="dark"] .primary-btn,
+html[data-theme="neon"] .primary-btn {
+    background: var(--theme-primary) !important;
+    color: #071D20 !important;
+}
+html[data-theme="neon"] .primary-btn {
+    box-shadow: 0 0 10px rgba(143, 250, 250, .55), 0 0 20px rgba(143, 250, 250, .18);
+}
+html[data-theme="neon"] .primary-btn:hover {
+    box-shadow: 0 0 14px rgba(187, 252, 252, .75), 0 0 26px rgba(143, 250, 250, .28);
+}

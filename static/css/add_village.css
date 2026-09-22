@@ -1,7 +1,7 @@
 .error-message {
-    background: #fef2f2;
-    color: #dc2626;
-    border: 1px solid #fecaca;
+    background: var(--theme-bg-soft);
+    color: var(--theme-accent-dark);
+    border: 1px solid var(--theme-border);
     padding: 11px 13px;
     border-radius: 8px;
     font-size: 13px;

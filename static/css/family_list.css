@@ -9,23 +9,23 @@ table {
 }
 
 thead {
-    background: #f9fafb;
+    background: var(--theme-bg-soft);
 }
 
 th {
     padding: 14px 20px;
     text-align: left;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--theme-muted);
     font-weight: 600;
     white-space: nowrap;
 }
 
 td {
     padding: 16px 20px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--theme-accent-soft);
     font-size: 13px;
-    color: #4b5563;
+    color: var(--theme-muted);
     white-space: nowrap;
 }
 

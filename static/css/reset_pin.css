@@ -10,7 +10,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
 
-            background: #f5f7fa;
+            background: var(--theme-accent-soft);
 
             min-height: 100vh;
 
@@ -28,14 +28,14 @@
             width: 100%;
             max-width: 430px;
 
-            background: white;
+            background: var(--theme-surface);
 
             padding: 42px;
 
             border-radius: 18px;
 
             box-shadow:
-                0 15px 45px rgba(0, 0, 0, 0.08);
+                0 15px 45px rgba(47, 143, 147, 0.14);
         }
 
 
@@ -45,7 +45,7 @@
 
             border-radius: 14px;
 
-            background: #168a43;
+            background: var(--theme-primary);
 
             color: white;
 
@@ -64,7 +64,7 @@
 
 
         h1 {
-            color: #172033;
+            color: var(--theme-text);
 
             font-size: 28px;
 
@@ -73,7 +73,7 @@
 
 
         .subtitle {
-            color: #6b7280;
+            color: var(--theme-muted);
 
             font-size: 14px;
 
@@ -84,11 +84,11 @@
 
 
         .error-message {
-            background: #fef2f2;
+            background: var(--theme-bg-soft);
 
-            color: #dc2626;
+            color: var(--theme-accent-dark);
 
-            border: 1px solid #fecaca;
+            border: 1px solid var(--theme-border);
 
             padding: 12px 14px;
 
@@ -101,11 +101,11 @@
 
 
         .success-message {
-            background: #f0fdf4;
+            background: var(--theme-accent-soft);
 
-            color: #15803d;
+            color: var(--theme-accent-dark);
 
-            border: 1px solid #bbf7d0;
+            border: 1px solid var(--theme-accent-soft);
 
             padding: 12px 14px;
 
@@ -122,7 +122,7 @@
         label {
             display: block;
 
-            color: #172033;
+            color: var(--theme-text);
 
             font-size: 14px;
 
@@ -137,7 +137,7 @@
 
             height: 52px;
 
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--theme-border);
 
             border-radius: 9px;
 
@@ -156,17 +156,17 @@
 
 
         input:focus {
-            border-color: #159447;
+            border-color: var(--theme-accent-dark);
 
             box-shadow:
-                0 0 0 3px rgba(21, 148, 71, 0.12);
+                0 0 0 3px rgba(143, 250, 250, 0.24);
         }
 
 
         .hint {
             text-align: center;
 
-            color: #8a94a6;
+            color: var(--theme-muted);
 
             font-size: 12px;
 
@@ -185,7 +185,7 @@
 
             border-radius: 9px;
 
-            background: #168a43;
+            background: var(--theme-primary);
 
             color: white;
 
@@ -198,7 +198,7 @@
 
 
         button:hover {
-            background: #117438;
+            background: var(--theme-accent-dark);
         }
 
 
@@ -209,7 +209,7 @@
 
             margin-top: 20px;
 
-            color: #168a43;
+            color: var(--theme-accent-dark);
 
             font-size: 13px;
 
@@ -233,3 +233,26 @@
         }
 
     
+
+
+/* Aqua card surface treatment — visual styling only */
+.action-card,
+.detail-card,
+.form-card,
+.search-card,
+.stat-card,
+.table-card {
+    background-color: var(--theme-surface);
+    border-color: var(--theme-border);
+    box-shadow: 0 4px 18px rgba(143, 250, 250, 0.16);
+}
+
+.action-card:hover,
+.detail-card:hover,
+.form-card:hover,
+.search-card:hover,
+.stat-card:hover,
+.table-card:hover {
+    border-color: var(--theme-secondary);
+    box-shadow: 0 8px 28px rgba(143, 250, 250, 0.25);
+}

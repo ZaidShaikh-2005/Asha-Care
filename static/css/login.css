@@ -9,7 +9,7 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7f8;
+            background: var(--theme-accent-soft);
             min-height: 100vh;
         }
 
@@ -26,7 +26,7 @@
 
         .login-left {
             width: 48%;
-            background: #126b38;
+            background: var(--theme-accent-dark);
             color: white;
             padding: 80px 70px;
             display: flex;
@@ -38,7 +38,7 @@
         .logo-box {
             width: 68px;
             height: 68px;
-            background: white;
+            background: var(--theme-surface);
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -48,7 +48,7 @@
 
 
         .logo-box span {
-            color: #126b38;
+            color: var(--theme-accent-dark);
             font-size: 20px;
             font-weight: 700;
         }
@@ -66,7 +66,7 @@
             max-width: 500px;
             font-size: 17px;
             line-height: 1.7;
-            color: #e8f5ed;
+            color: var(--theme-accent-soft);
             margin-bottom: 48px;
         }
 
@@ -105,7 +105,7 @@
 
         .login-right {
             width: 52%;
-            background: #f5f7fa;
+            background: var(--theme-accent-soft);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -116,15 +116,15 @@
         .login-card {
             width: 100%;
             max-width: 430px;
-            background: white;
+            background: var(--theme-surface);
             padding: 45px 42px;
             border-radius: 18px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 45px rgba(47, 143, 147, 0.14);
         }
 
 
         .login-card h2 {
-            color: #172033;
+            color: var(--theme-text);
             font-size: 30px;
             margin-bottom: 8px;
             font-weight: 700;
@@ -132,16 +132,16 @@
 
 
         .subtitle {
-            color: #6b7280;
+            color: var(--theme-muted);
             font-size: 15px;
             margin-bottom: 35px;
         }
 
 
         .error-message {
-            background: #fef2f2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
+            background: var(--theme-bg-soft);
+            color: var(--theme-accent-dark);
+            border: 1px solid var(--theme-border);
             padding: 12px 14px;
             border-radius: 8px;
             font-size: 14px;
@@ -150,9 +150,9 @@
 
 
         .success-message {
-            background: #f0fdf4;
-            color: #15803d;
-            border: 1px solid #bbf7d0;
+            background: var(--theme-accent-soft);
+            color: var(--theme-accent-dark);
+            border: 1px solid var(--theme-accent-soft);
             padding: 12px 14px;
             border-radius: 8px;
             font-size: 14px;
@@ -162,7 +162,7 @@
 
         .form-label {
             display: block;
-            color: #172033;
+            color: var(--theme-text);
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 10px;
@@ -172,34 +172,34 @@
         .pin-input {
             width: 100%;
             height: 58px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--theme-border);
             border-radius: 10px;
             outline: none;
             font-size: 24px;
             letter-spacing: 10px;
             text-align: center;
-            color: #172033;
-            background: white;
+            color: var(--theme-text);
+            background: var(--theme-surface);
             transition: 0.2s;
         }
 
 
         .pin-input:focus {
-            border-color: #159447;
-            box-shadow: 0 0 0 3px rgba(21, 148, 71, 0.12);
+            border-color: var(--theme-accent-dark);
+            box-shadow: 0 0 0 3px rgba(143, 250, 250, 0.24);
         }
 
 
         .pin-input::placeholder {
             font-size: 14px;
             letter-spacing: 2px;
-            color: #9ca3af;
+            color: var(--theme-muted);
         }
 
 
         .pin-hint {
             text-align: center;
-            color: #8a94a6;
+            color: var(--theme-muted);
             font-size: 13px;
             margin-top: 12px;
             margin-bottom: 27px;
@@ -211,7 +211,7 @@
             height: 52px;
             border: none;
             border-radius: 9px;
-            background: #168a43;
+            background: var(--theme-primary);
             color: white;
             font-size: 15px;
             font-weight: 600;
@@ -221,7 +221,7 @@
 
 
         .login-button:hover {
-            background: #117438;
+            background: var(--theme-accent-dark);
         }
 
 
@@ -241,7 +241,7 @@
 
 
         .forgot-pin a {
-            color: #168a43;
+            color: var(--theme-accent-dark);
             font-size: 13px;
             font-weight: 600;
             text-decoration: none;
@@ -255,7 +255,7 @@
 
         .security-text {
             text-align: center;
-            color: #9ca3af;
+            color: var(--theme-muted);
             font-size: 12px;
             margin-top: 25px;
         }
@@ -306,3 +306,26 @@
         }
 
     
+
+
+/* Aqua card surface treatment — visual styling only */
+.action-card,
+.detail-card,
+.form-card,
+.search-card,
+.stat-card,
+.table-card {
+    background-color: var(--theme-surface);
+    border-color: var(--theme-border);
+    box-shadow: 0 4px 18px rgba(143, 250, 250, 0.16);
+}
+
+.action-card:hover,
+.detail-card:hover,
+.form-card:hover,
+.search-card:hover,
+.stat-card:hover,
+.table-card:hover {
+    border-color: var(--theme-secondary);
+    box-shadow: 0 8px 28px rgba(143, 250, 250, 0.25);
+}
