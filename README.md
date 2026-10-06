@@ -1,164 +1,74 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F5A0,50:00D9FF,100:7F00FF&height=220&section=header&text=Community%20Help&fontSize=55&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Build%20%7C%20Learn%20%7C%20Share%20%7C%20Help&descAlignY=58&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F5A0,50:00D9FF,100:7F00FF&height=220&section=header&text=Community%20Help&fontSize=55&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Build%20%7C%20Learn%20%7C%20Share%20%7C%20Help&descAlignY=58&descSize=20" width="100%" alt="Community Help — Build, Learn, Share, Help" />
 
-<br>
+<h1>ASHA Care</h1>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=2500&pause=700&color=00F5A0&center=true&vCenter=true&width=800&lines=Helping+Developers+Build+Better+Software;Sharing+Practical+Technical+Solutions;Learning+Through+Real+Projects;Giving+Back+to+the+Developer+Community" />
+<p><strong>Family and member management for community healthcare workflows.</strong></p>
 
-<br><br>
+<p>A Django application packaged for Windows, bringing family records,<br />member information, and everyday record management into one place.</p>
 
-<a href="https://github.com/ZaidShaikh-2005/community-help">
-<img src="https://img.shields.io/github/stars/ZaidShaikh-2005/community-help?style=for-the-badge&logo=github&label=STARS&color=7F00FF">
+<a href="https://github.com/ZaidShaikh-2005/community-help/releases/latest/download/AshaNurseApp_Setup.exe">
+  <img src="https://img.shields.io/badge/Download_Windows_Installer-18181B?style=for-the-badge&logo=windows&logoColor=white" alt="Download ASHA Care for Windows" />
 </a>
 
-<a href="https://github.com/ZaidShaikh-2005/community-help/network/members">
-<img src="https://img.shields.io/github/forks/ZaidShaikh-2005/community-help?style=for-the-badge&logo=github&label=FORKS&color=00D9FF">
-</a>
-
-<a href="https://github.com/ZaidShaikh-2005/community-help/commits/main">
-<img src="https://img.shields.io/github/last-commit/ZaidShaikh-2005/community-help?style=for-the-badge&logo=git&label=LAST%20COMMIT&color=00F5A0">
-</a>
-
-<a href="https://github.com/ZaidShaikh-2005/community-help">
-<img src="https://img.shields.io/github/repo-size/ZaidShaikh-2005/community-help?style=for-the-badge&label=REPO%20SIZE&color=7F00FF">
-</a>
+<p>
+  <a href="#installation">Installation</a> &nbsp;·&nbsp;
+  <a href="#features">Features</a> &nbsp;·&nbsp;
+  <a href="https://github.com/ZaidShaikh-2005/community-help/releases">Releases</a> &nbsp;·&nbsp;
+  <a href="https://github.com/ZaidShaikh-2005/community-help/issues">Report an issue</a>
+</p>
 
 </div>
 
 ---
 
-# 🌐 Community Help
+## Overview
 
-> ### A space for practical software development, technical problem-solving, and meaningful community contributions.
+ASHA Care helps ASHA workers and nursing staff maintain family and member records through a straightforward workflow. Users can register families, associate members with each family, and search, view, or update records from a central dashboard.
 
-**Community Help** is a collection of practical projects, development solutions, experiments, and technical work created through hands-on learning and real-world problem solving.
+Developed as part of **Community Help**, the application grew from a practical software requirement shared through the GitHub Community.
 
-The repository focuses on building useful software, documenting development work, and sharing knowledge that can help other developers.
+## Installation
 
----
+1. Click **Download Windows Installer** above.
+2. Open the downloaded `AshaNurseApp_Setup.exe` and complete the setup wizard.
+3. Launch **ASHA Care** using the shortcut created during installation.
+4. Sign in with the six-digit PIN provided by your administrator.
 
-## ✨ What You'll Find Here
+The Windows installer provides the packaged application. End users do not need to clone this repository or configure a Python development environment.
 
-<div align="center">
+For available versions and release notes, visit the [Releases page](https://github.com/ZaidShaikh-2005/community-help/releases).
 
-<table>
-<tr>
-<td align="center">💻<br><b>Practical Projects</b></td>
-<td align="center">🧩<br><b>Problem Solving</b></td>
-<td align="center">🤝<br><b>GitHub Contributions</b></td>
-</tr>
+## Features
 
-<tr>
-<td align="center">📚<br><b>Technical Guidance</b></td>
-<td align="center">🔧<br><b>Development Solutions</b></td>
-<td align="center">🚀<br><b>Learning Projects</b></td>
-</tr>
-</table>
+| Area | Capabilities |
+| --- | --- |
+| Authentication | Six-digit PIN login with an administrator-managed PIN. |
+| Dashboard | Family and member overview, with quick access to common operations. |
+| Family records | Register families, store details, search records, and view associated members. |
+| Member records | Add members to families, search records, view details, and edit information. |
+| Navigation | Move between family details and individual member records. |
+| Windows distribution | Install the packaged application through a setup wizard. |
 
-</div>
+## Using the application
 
----
+**Register a family.** Add a family record and enter its details.
 
-# 🤝 My GitHub Community Contribution
+**Add its members.** Open the family record and register the members associated with it.
 
-<div align="center">
+**Maintain the records.** Use search to locate families or members, review their details, and update member information as needed.
 
-### Contributing technical guidance through the GitHub Community
-<br>
+## Project background
 
-<a href="https://github.com/orgs/community/discussions/208038#discussioncomment-18501894">
+The original requirement was shared in a GitHub Community discussion about building a family and member management application. The resulting implementation uses Django and is distributed as a Windows application for a simpler installation experience.
 
-<img src="https://img.shields.io/badge/🤝%20VIEW%20MY%20ANSWER-181717?style=for-the-badge&logo=github&logoColor=white">
-</a>
-&nbsp;&nbsp;
-<a href="https://github.com/orgs/community/discussions/208038">
+[View the community response](https://github.com/orgs/community/discussions/208038#discussioncomment-18501894) · [Read the original discussion](https://github.com/orgs/community/discussions/208038)
 
-<img src="https://img.shields.io/badge/💬%20VIEW%20FULL%20DISCUSSION-7F00FF?style=for-the-badge&logo=github&logoColor=white">
+## Support
 
-</a>
-
-<img src="https://img.shields.io/badge/GitHub%20Community-ANSWERED-00C853?style=for-the-badge&logo=github&logoColor=white">
-
-</div>
-
-<br>
-
-### 📌 Contribution Overview
-
-A developer reached out through the **GitHub Community** looking for guidance with a real-world software project.
-
-The requirement involved developing a web application to manage family and member information through a simple and practical workflow.
-
-The project requirements included:
-
-- Family record management
-- Member information management
-- Search, view, and edit functionality
-- Dashboard overview
-- 6-digit PIN-based login
-- Family and member navigation
-- Django-based backend and frontend
-
-The workflow was translated into a structured development plan and implemented as a practical **Django application**.
+Submit bug reports and feature requests through [GitHub Issues](https://github.com/ZaidShaikh-2005/community-help/issues). For a bug report, include the application version, steps to reproduce the problem, and the error message or a screenshot. Remove personal and patient information before sharing examples.
 
 ---
 
-# 🏥 Featured Project
-
-## ASHA / Nurse Family Management System
-
-A Django-based family and member management application designed around a practical healthcare workflow.
-
-The application provides a simple interface for managing family records and the members associated with each family.
-
-### 🔐 Authentication
-
-- 6-digit PIN-based login
-- Admin-managed PIN
-- Simple authentication workflow
-
-### 📊 Dashboard
-
-- Family overview
-- Member overview
-- Quick access to major operations
-
-### 👨‍👩‍👧 Family Management
-
-- Add Family
-- Store family details
-- Search families
-- View family details
-- View family members
-
-### 👤 Member Management
-
-- Add Member
-- Store member information
-- Search members
-- View member details
-- Edit member information
-
----
-
-# 🔄 Application Workflow
-
-```text
-Login
-  ↓
-6-Digit PIN
-  ↓
-Dashboard
-  ↓
-Add Family
-  ↓
-Family Details
-  ↓
-Add Members
-  ↓
-Member Management
-  ↓
-Search / View / Edit
-  ↓
-Family Management
+Developed by [Zaid Shaikh](https://github.com/ZaidShaikh-2005) · **Community Help**
